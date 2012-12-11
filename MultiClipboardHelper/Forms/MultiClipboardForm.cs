@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using NppPluginNET;
 
 namespace MultiClipboardHelper
 {
@@ -13,5 +14,10 @@ namespace MultiClipboardHelper
         {
             InitializeComponent();
         }
+
+		private void ButtonCopyClick(object sender, EventArgs e)
+		{
+			
+		}
     }
 }
