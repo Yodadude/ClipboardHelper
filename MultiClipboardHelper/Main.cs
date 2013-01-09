@@ -25,6 +25,7 @@ namespace MultiClipboardHelper
         #endregion
 
         #region " StartUp/CleanUp "
+
         internal static void CommandMenuInit()
         {
 			//StringBuilder sbIniFilePath = new StringBuilder(Win32.MAX_PATH);
@@ -35,8 +36,11 @@ namespace MultiClipboardHelper
 			//someSetting = (Win32.GetPrivateProfileInt("SomeSection", "SomeKey", 0, iniFilePath) != 0);
 
 			PluginBase.SetCommand(0, "Multi-ClipboardCommand", myMenuFunction, new ShortcutKey(false, false, false, Keys.None));
-            PluginBase.SetCommand(1, "Multi-Clipboard Helper", myDockableDialog); idMyDlg = 1;
+            PluginBase.SetCommand(1, "Multi Clipboard Helper", myDockableDialog); idMyDlg = 1;
+
+            
         }
+
         internal static void SetToolBarIcon()
         {
             toolbarIcons tbIcons = new toolbarIcons();
@@ -46,10 +50,12 @@ namespace MultiClipboardHelper
             Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_ADDTOOLBARICON, PluginBase._funcItems.Items[idMyDlg]._cmdID, pTbIcons);
             Marshal.FreeHGlobal(pTbIcons);
         }
+
         internal static void PluginCleanUp()
         {
 			//Win32.WritePrivateProfileString("SomeSection", "SomeKey", someSetting ? "1" : "0", iniFilePath);
         }
+
         #endregion
 
         #region " Menu functions "
@@ -57,6 +63,7 @@ namespace MultiClipboardHelper
         {
             MessageBox.Show("Hello N++!");
         }
+
         internal static void myDockableDialog()
         {
             if (frmMyDlg == null)

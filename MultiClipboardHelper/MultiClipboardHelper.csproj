@@ -105,6 +105,21 @@
   <ItemGroup>
     <None Include="Properties\monitor.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\accept.png" />
+    <Content Include="Resources\add.png" />
+    <Content Include="Resources\arrow_down.png" />
+    <Content Include="Resources\arrow_left.png" />
+    <Content Include="Resources\arrow_refresh.png" />
+    <Content Include="Resources\arrow_right.png" />
+    <Content Include="Resources\arrow_up.png" />
+    <Content Include="Resources\bullet_delete.png" />
+    <Content Include="Resources\cancel.png" />
+    <Content Include="Resources\cross.png" />
+    <Content Include="Resources\delete.png" />
+    <Content Include="Resources\exclamation.png" />
+    <Content Include="Resources\stop.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildProjectDirectory)\DllExport\NppPlugin.DllExport.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
