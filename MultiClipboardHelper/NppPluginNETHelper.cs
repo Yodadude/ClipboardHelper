@@ -208,6 +208,7 @@ namespace NppPluginNET
     [Flags]
     public enum NppMsg : uint
     {
+		EM_SETTABSTOPS = 0x00CB,
         //Here you can find how to use these messages : http://notepad-plus.sourceforge.net/uk/plugins-HOWTO.php 
         NPPMSG = (0x400/*WM_USER*/ + 1000),
 

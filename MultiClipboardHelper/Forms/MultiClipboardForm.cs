@@ -11,11 +11,15 @@ namespace MultiClipboardHelper
 
     public partial class MultiClipboardForm : Form
     {
+		//private const uint EM_SETTABSTOPS = 0x00CB;
 
         public MultiClipboardForm()
         {
             InitializeComponent();
+			
+			var tabSize = new[] { 4 * 4 };
 
+			//Win32.SendMessage(textBoxClip.Handle, NppMsg.EM_SETTABSTOPS, 1, tabSize);
         }
 
 		private void buttonCopy_Click(object sender, EventArgs e)
@@ -100,7 +104,10 @@ namespace MultiClipboardHelper
 
         private void textBoxClip_TextChanged(object sender, EventArgs e)
         {
-            listBoxItems.Items[listBoxItems.SelectedIndex] = textBoxClip.Text;
+			if (listBoxItems.SelectedIndex != -1)
+			{
+				listBoxItems.Items[listBoxItems.SelectedIndex] = textBoxClip.Text;
+			}
         }
 
         private enum Direction
