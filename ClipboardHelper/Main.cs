@@ -7,15 +7,15 @@ using System.Text;
 using System.Windows.Forms;
 using NppPluginNET;
 
-namespace MultiClipboardHelper
+namespace ClipboardHelper
 {
     class Main
     {
         #region " Fields "
-        internal const string PluginName = "Multi Clipboard Helper";
-        static string iniFilePath = null;
-        static bool someSetting = false;
-        static MultiClipboardForm frmMyDlg = null;
+        internal const string PluginName = "Clipboard Helper";
+        //static string iniFilePath = null;
+        //static bool someSetting = false;
+        static ClipboardForm frmMyDlg = null;
         static int idMyDlg = -1;
 		//static Bitmap tbBmp = Properties.Resources.star;
 		//static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
@@ -35,8 +35,9 @@ namespace MultiClipboardHelper
 			//iniFilePath = Path.Combine(iniFilePath, PluginName + ".ini");
 			//someSetting = (Win32.GetPrivateProfileInt("SomeSection", "SomeKey", 0, iniFilePath) != 0);
 
-			PluginBase.SetCommand(0, "Multi-ClipboardCommand", myMenuFunction, new ShortcutKey(false, false, false, Keys.None));
-            PluginBase.SetCommand(1, "Multi Clipboard Helper", myDockableDialog); idMyDlg = 1;
+			PluginBase.SetCommand(0, "ClipboardCommand", myMenuFunction, new ShortcutKey(false, false, false, Keys.None));
+            PluginBase.SetCommand(1, "Clipboard Helper", myDockableDialog); 
+            idMyDlg = 1;
 
             
         }
@@ -68,7 +69,7 @@ namespace MultiClipboardHelper
         {
             if (frmMyDlg == null)
             {
-                frmMyDlg = new MultiClipboardForm();
+                frmMyDlg = new ClipboardForm();
 
                 using (Bitmap newBmp = new Bitmap(16, 16))
                 {
@@ -85,7 +86,7 @@ namespace MultiClipboardHelper
 
                 NppTbData _nppTbData = new NppTbData();
                 _nppTbData.hClient = frmMyDlg.Handle;
-				_nppTbData.pszName = "Multi Clipboard Helper";
+				_nppTbData.pszName = "Clipboard Helper";
                 _nppTbData.dlgID = idMyDlg;
                 _nppTbData.uMask = NppTbMsg.DWS_DF_CONT_RIGHT | NppTbMsg.DWS_ICONTAB | NppTbMsg.DWS_ICONBAR;
                 _nppTbData.hIconTab = (uint)tbIcon.Handle;
