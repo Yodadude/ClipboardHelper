@@ -15,6 +15,7 @@ namespace ClipboardHelper
         internal const string PluginName = "Clipboard Helper";
         //static string iniFilePath = null;
         //static bool someSetting = false;
+        static bool isDialogVisible = false;
         static ClipboardForm frmMyDlg = null;
         static int idMyDlg = -1;
 		//static Bitmap tbBmp = Properties.Resources.star;
@@ -95,10 +96,13 @@ namespace ClipboardHelper
                 Marshal.StructureToPtr(_nppTbData, _ptrNppTbData, false);
 
                 Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMREGASDCKDLG, 0, _ptrNppTbData);
+
+                isDialogVisible = true;
             }
             else
             {
-                Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMSHOW, 0, frmMyDlg.Handle);
+                Win32.SendMessage(PluginBase.nppData._nppHandle, isDialogVisible ? NppMsg.NPPM_DMMHIDE : NppMsg.NPPM_DMMSHOW, 0, frmMyDlg.Handle);
+                isDialogVisible = !isDialogVisible;
             }
         }
         #endregion
