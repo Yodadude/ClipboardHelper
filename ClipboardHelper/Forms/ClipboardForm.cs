@@ -24,15 +24,23 @@ namespace ClipboardHelper
 
 		private void buttonCopy_Click(object sender, EventArgs e)
 		{
+			int start = 0, end = 0;
+			int bufferSize = 0;
 
-            StringBuilder selectedText = new StringBuilder(1000);
-            Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELTEXT, 0, selectedText);
-            
-            if (selectedText != null && selectedText.Length > 0)
-            {
-                listBoxItems.Items.Add(selectedText.ToString());
-            }
-            
+			IntPtr selStart = Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELECTIONSTART, 0, 0);
+			IntPtr selEnd = Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELECTIONEND, 0, 0);
+
+			start = selStart.ToInt32();
+			end = selEnd.ToInt32();
+
+			bufferSize = start < end ? end - start : start - end;
+
+			if (bufferSize > 0)
+			{
+				var selectedText = new StringBuilder(bufferSize);
+				Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELTEXT, 0, selectedText);
+				listBoxItems.Items.Add(selectedText.ToString());
+			}
 		}
 
         private void buttonInsert_Click(object sender, EventArgs e)

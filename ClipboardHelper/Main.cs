@@ -36,8 +36,9 @@ namespace ClipboardHelper
 			//iniFilePath = Path.Combine(iniFilePath, PluginName + ".ini");
 			//someSetting = (Win32.GetPrivateProfileInt("SomeSection", "SomeKey", 0, iniFilePath) != 0);
 
-			PluginBase.SetCommand(0, "ClipboardCommand", myMenuFunction, new ShortcutKey(false, false, false, Keys.None));
-            PluginBase.SetCommand(1, "Clipboard Helper", myDockableDialog); 
+			
+            PluginBase.SetCommand(0, "Clipboard Helper", myDockableDialog);
+			PluginBase.SetCommand(1, "About", myMenuAbout, new ShortcutKey(false, false, false, Keys.None));
             idMyDlg = 1;
 
             
@@ -61,9 +62,9 @@ namespace ClipboardHelper
         #endregion
 
         #region " Menu functions "
-        internal static void myMenuFunction()
+		internal static void myMenuAbout()
         {
-            MessageBox.Show("Hello N++!");
+            MessageBox.Show("Clipboard Helper 1.0\n\nWritten using .Net C# with the NppPluginNet Plugin.\n\nAvailable on GitHub: https://github.com/Yodadude/ClipboardHelper \n\nJohn Byrne 2013");
         }
 
         internal static void myDockableDialog()
