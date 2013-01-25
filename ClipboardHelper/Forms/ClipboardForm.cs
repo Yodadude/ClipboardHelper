@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using NppPluginNET;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace ClipboardHelper
 {
@@ -12,6 +10,7 @@ namespace ClipboardHelper
     public partial class ClipboardForm : Form
     {
 		//private const uint EM_SETTABSTOPS = 0x00CB;
+		//public void delegate keyHandler;
 
         public ClipboardForm()
         {
@@ -20,7 +19,14 @@ namespace ClipboardHelper
 			var tabSize = new[] { 4 * 4 };
 
 			//Win32.SendMessage(textBoxClip.Handle, NppMsg.EM_SETTABSTOPS, 1, tabSize);
+
+			//Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCN_CHARADDED , ref ProcessKeyPress, 0);
         }
+
+		public void ProcessKeyPress(SCNotification msg)
+		{
+			
+		}
 
 		private void buttonCopy_Click(object sender, EventArgs e)
 		{
