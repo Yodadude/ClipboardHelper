@@ -46,6 +46,7 @@ namespace ClipboardHelper
         static void beNotified(IntPtr notifyCode)
         {
             SCNotification nc = (SCNotification)Marshal.PtrToStructure(notifyCode, typeof(SCNotification));
+
             if (nc.nmhdr.code == (uint)NppMsg.NPPN_TBMODIFICATION)
             {
                 PluginBase._funcItems.RefreshItems();

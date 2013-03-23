@@ -9,44 +9,37 @@ namespace ClipboardHelper
 
     public partial class ClipboardForm : Form
     {
-		//private const uint EM_SETTABSTOPS = 0x00CB;
-		//public void delegate keyHandler;
 
         public ClipboardForm()
         {
             InitializeComponent();
-			
-			var tabSize = new[] { 4 * 4 };
-
-			//Win32.SendMessage(textBoxClip.Handle, NppMsg.EM_SETTABSTOPS, 1, tabSize);
-
-			//Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCN_CHARADDED , ref ProcessKeyPress, 0);
         }
 
-		public void ProcessKeyPress(SCNotification msg)
-		{
-			
-		}
+        public void CopySelectedText()
+        {
+            int start = 0, end = 0;
+            int bufferSize = 0;
+
+            IntPtr selStart = Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELECTIONSTART, 0, 0);
+            IntPtr selEnd = Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELECTIONEND, 0, 0);
+
+            start = selStart.ToInt32();
+            end = selEnd.ToInt32();
+
+            bufferSize = start < end ? end - start : start - end;
+
+            if (bufferSize > 0)
+            {
+                var selectedText = new StringBuilder(bufferSize);
+                Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELTEXT, 0, selectedText);
+                listBoxItems.Items.Add(selectedText.ToString());   
+            }
+
+        }
 
 		private void buttonCopy_Click(object sender, EventArgs e)
 		{
-			int start = 0, end = 0;
-			int bufferSize = 0;
-
-			IntPtr selStart = Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELECTIONSTART, 0, 0);
-			IntPtr selEnd = Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELECTIONEND, 0, 0);
-
-			start = selStart.ToInt32();
-			end = selEnd.ToInt32();
-
-			bufferSize = start < end ? end - start : start - end;
-
-			if (bufferSize > 0)
-			{
-				var selectedText = new StringBuilder(bufferSize);
-				Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELTEXT, 0, selectedText);
-				listBoxItems.Items.Add(selectedText.ToString());
-			}
+            CopySelectedText();
 		}
 
         private void buttonInsert_Click(object sender, EventArgs e)

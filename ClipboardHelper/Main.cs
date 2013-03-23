@@ -13,13 +13,9 @@ namespace ClipboardHelper
     {
         #region " Fields "
         internal const string PluginName = "Clipboard Helper";
-        //static string iniFilePath = null;
-        //static bool someSetting = false;
         static bool isDialogVisible = false;
         static ClipboardForm frmMyDlg = null;
         static int idMyDlg = -1;
-		//static Bitmap tbBmp = Properties.Resources.star;
-		//static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
 		static Bitmap tbBmp = Properties.Resources.monitor;
 		static Bitmap tbBmp_tbTab = Properties.Resources.monitor;
         static Icon tbIcon = null;
@@ -29,19 +25,9 @@ namespace ClipboardHelper
 
         internal static void CommandMenuInit()
         {
-			//StringBuilder sbIniFilePath = new StringBuilder(Win32.MAX_PATH);
-			//Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETPLUGINSCONFIGDIR, Win32.MAX_PATH, sbIniFilePath);
-			//iniFilePath = sbIniFilePath.ToString();
-			//if (!Directory.Exists(iniFilePath)) Directory.CreateDirectory(iniFilePath);
-			//iniFilePath = Path.Combine(iniFilePath, PluginName + ".ini");
-			//someSetting = (Win32.GetPrivateProfileInt("SomeSection", "SomeKey", 0, iniFilePath) != 0);
-
-			
             PluginBase.SetCommand(0, "Clipboard Helper", myDockableDialog);
 			PluginBase.SetCommand(1, "About", myMenuAbout, new ShortcutKey(false, false, false, Keys.None));
-            idMyDlg = 1;
-
-            
+            idMyDlg = 0;
         }
 
         internal static void SetToolBarIcon()
@@ -106,6 +92,7 @@ namespace ClipboardHelper
                 isDialogVisible = !isDialogVisible;
             }
         }
+
         #endregion
     }
 }
