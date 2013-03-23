@@ -1,0 +1,6 @@
+﻿Notepad++ Plugin to help when you need to several pieces of text in the clipboard so that you can paste them into multiple spots. Written in C#.
+
+Requires .Net 2.0 or above.
+
+Compile and then place DLL in Notepad++\plugins sub-directory.
+
