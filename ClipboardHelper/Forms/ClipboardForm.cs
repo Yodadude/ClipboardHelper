@@ -37,6 +37,16 @@ namespace ClipboardHelper
 
         }
 
+		public void InsertSelectedItem()
+		{
+			if (listBoxItems.SelectedIndex >= 0)
+			{
+				string selectedText = listBoxItems.SelectedItem.ToString();
+				Clipboard.SetText(selectedText, TextDataFormat.Text);
+				Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_PASTE, 0, 0);
+			}
+		}
+
 		private void buttonCopy_Click(object sender, EventArgs e)
 		{
             CopySelectedText();
@@ -44,12 +54,7 @@ namespace ClipboardHelper
 
         private void buttonInsert_Click(object sender, EventArgs e)
         {
-            if (listBoxItems.SelectedIndex >= 0)
-            {
-                string selectedText = listBoxItems.SelectedItem.ToString();
-                Clipboard.SetText(selectedText, TextDataFormat.Text);
-                Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_PASTE, 0, 0);
-            }
+        	InsertSelectedItem();
         }
 
         private void buttonDeleteAll_Click(object sender, EventArgs e)
@@ -122,5 +127,10 @@ namespace ClipboardHelper
             Up,
             Down
         };
+
+		private void listBoxItems_DoubleClick(object sender, EventArgs e)
+		{
+			InsertSelectedItem();
+		}
     }
 }
