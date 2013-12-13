@@ -19,14 +19,26 @@ namespace ClipboardHelper
 		static Bitmap tbBmp = Properties.Resources.monitor;
 		static Bitmap tbBmp_tbTab = Properties.Resources.monitor;
         static Icon tbIcon = null;
+        static string iniFilePath = null;
+        static bool saveClipboard = false;
         #endregion
 
         #region " StartUp/CleanUp "
 
         internal static void CommandMenuInit()
         {
+            StringBuilder sbIniFilePath = new StringBuilder(Win32.MAX_PATH);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETPLUGINSCONFIGDIR, Win32.MAX_PATH, sbIniFilePath);
+
+            iniFilePath = sbIniFilePath.ToString();
+            if (!Directory.Exists(iniFilePath)) Directory.CreateDirectory(iniFilePath);
+            iniFilePath = Path.Combine(iniFilePath, PluginName + ".ini");
+            saveClipboard = (Win32.GetPrivateProfileInt("General", "SaveClipboard", 0, iniFilePath) != 0);
+
             PluginBase.SetCommand(0, "Clipboard Helper", myDockableDialog);
-			PluginBase.SetCommand(1, "About", myMenuAbout, new ShortcutKey(false, false, false, Keys.None));
+            PluginBase.SetCommand(1, "Save on Exit?", myMenuSave, saveClipboard);
+			PluginBase.SetCommand(2, "About", myMenuAbout, new ShortcutKey(false, false, false, Keys.None));
+
             idMyDlg = 0;
         }
 
@@ -42,12 +54,33 @@ namespace ClipboardHelper
 
         internal static void PluginCleanUp()
         {
-			//Win32.WritePrivateProfileString("SomeSection", "SomeKey", someSetting ? "1" : "0", iniFilePath);
+
+            if (saveClipboard)
+            {
+                if (frmMyDlg != null)
+                {
+                    Win32.WritePrivateProfileString("General", "Clipboard", frmMyDlg.GetAllText(), iniFilePath);
+                    MessageBox.Show(frmMyDlg.GetAllText());
+                }
+            }
         }
 
         #endregion
 
         #region " Menu functions "
+
+        internal static void myMenuSave()
+        {
+            MessageBox.Show(iniFilePath);
+            saveClipboard = !saveClipboard;
+
+            Win32.WritePrivateProfileString("General", "SaveClipboard", saveClipboard ? "1" : "0", iniFilePath);
+
+            int i = Win32.CheckMenuItem(Win32.GetMenu(PluginBase.nppData._nppHandle), PluginBase._funcItems.Items[1]._cmdID,
+                Win32.MF_BYCOMMAND | (saveClipboard ? Win32.MF_CHECKED : Win32.MF_UNCHECKED));
+
+        }
+
 		internal static void myMenuAbout()
         {
             MessageBox.Show("Clipboard Helper 1.0\n\nWritten using .Net C# with the NppPluginNet Plugin.\n\nAvailable on GitHub: https://github.com/Yodadude/ClipboardHelper \n\nJohn Byrne 2013");

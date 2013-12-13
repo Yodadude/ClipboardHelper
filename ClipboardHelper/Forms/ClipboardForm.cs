@@ -37,6 +37,11 @@ namespace ClipboardHelper
 
         }
 
+        public string GetAllText()
+        {
+            return listBoxItems.Items.ToString();
+        }
+
 		public void InsertSelectedItem()
 		{
 			if (listBoxItems.SelectedIndex >= 0)
