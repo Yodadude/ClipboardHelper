@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Collections;
 using System.Windows.Forms;
 using NppPluginNET;
 
@@ -37,9 +38,27 @@ namespace ClipboardHelper
 
         }
 
-        public string GetAllText()
+        public string[] GetItems()
         {
-            return listBoxItems.Items.ToString();
+            string[] items = new string[listBoxItems.Items.Count];
+
+            for (int i = 0; i < listBoxItems.Items.Count; i++)
+            {
+                items[i] = listBoxItems.Items[i].ToString();
+            }
+
+            return items;
+        }
+
+        public void SetItems(string[] items)
+        {
+
+            listBoxItems.Items.Clear();
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                listBoxItems.Items.Add(items[i]);
+            }
         }
 
 		public void InsertSelectedItem()
