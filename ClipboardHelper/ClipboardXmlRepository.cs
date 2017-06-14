@@ -16,7 +16,9 @@ namespace ClipboardHelper
 
             if (!File.Exists(filePath))
             {
-                File.CreateText(filePath);
+                using (File.CreateText(filePath) )
+                {
+                }
             }
         }
 
